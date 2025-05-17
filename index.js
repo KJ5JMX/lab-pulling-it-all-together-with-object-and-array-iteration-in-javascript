@@ -114,3 +114,216 @@ function gameObject() {
         },
     };
 }
+
+//gather number of points scored 
+function numPointsScored(playerName) {
+    const game = gameObject();
+    for (const team in game) {
+        const players = game[team].players;
+        if (players[playerName]) {
+            return players[playerName].points;     
+        }
+    }
+}   
+console.log(numPointScored("Ben Gordon")); // 33
+console.log(numPointScored("Alan Anderson")); // 22
+console.log(numPointScored("Bismack Biyombo")); // 12
+
+
+//gather shoe size
+function shoeSize(playerName) {
+    const game = gameObject();
+    for (const team in game) {
+        const players = game[team].players;
+        if (players[playerName]) {
+            return players[playerName].shoe;     
+        }
+    }
+}       
+console.log(shoeSize("Ben Gordon")); // 15
+console.log(shoeSize("Alan Anderson")); // 16
+console.log(shoeSize("Bismack Biyombo")); // 16
+
+
+//gather what colors the team wears
+function teamColors(teamName) {
+    const game = gameObject();
+    for (const team in game) {
+        if (game[team].teamName === teamName) {
+            return game[team].colors;     
+        }
+    }
+}
+console.log(teamColors("Charlotte Hornets")); // ["Turquoise", "Purple"]
+console.log(teamColors("Brooklyn Nets")); // ["Black", "White"]
+
+//gather what the names of the teams are
+function teamNames() {
+    const game = gameObject();
+    return [game.home.teamName, game.away.teamName];
+}   
+console.log(teamNames()); // ["Brooklyn Nets", "Charlotte Hornets"] 
+
+
+//gather what numbers the players jersey numbers are
+function playerNumbers(teamName) {
+    const game = gameObject();
+    const numbers = [];
+    for (const team in game) {
+        if (game[team].teamName === teamName) {
+            const players = game[team].players;
+            for (const player in players) {
+                numbers.push(players[player].number);
+            }
+        }
+    }
+    return numbers;
+}
+console.log(playerNumbers("Charlotte Hornets")); // [4, 0, 2, 8, 33]
+console.log(playerNumbers("Brooklyn Nets")); // [0, 30, 11, 1, 31]
+
+
+//all stats per player
+function playerStats(playerName) {
+    const game = gameObject();
+    for (const team in game) {
+        const players = game[team].players;
+        if (players[playerName]) {
+      return players[playerName];
+    }
+  }
+}
+console.log(playerStats("Ben Gordon")); // {number: 8, shoe: 15, points: 33, rebounds: 3, assists: 2, steals: 1, blocks: 1, slamDunks: 0}
+console.log(playerStats("Alan Anderson")); // {number: 0, shoe: 16, points: 22, rebounds: 12, assists: 12, steals: 3, blocks: 1, slamDunks: 1}
+
+
+//number of rebounds
+function totalRebounds(playerName) {
+    const game = gameObject();
+    for (const team in game) {
+        const players = game[team].players;
+        if (players[playerName]) {
+            return players[playerName].rebounds;     
+        }
+    }
+}
+console.log(totalRebounds("Ben Gordon")); // 3
+console.log(totalRebounds("Alan Anderson")); // 12
+
+
+//player with the biggest shoe size
+function bigShoeRebounds() {
+  const game = gameObject();
+  let biggestShoeSize = 0;
+  let playerRebounds = 0;
+
+  for (const team in game) {
+    const players = game[team].players;
+
+    for (const player in players) {
+      if (players[player].shoe > biggestShoeSize) {
+        biggestShoeSize = players[player].shoe;
+        playerRebounds = players[player].rebounds;
+      }
+    }
+  }
+
+  return playerRebounds; 
+
+console.log(bigShoeRebounds()); // 19
+
+
+//rebounds of the player with the biggest shoe size
+function bigShoeRebounds() {
+    const game = gameObject();
+    let biggestShoeSize = 0;
+    let playerName = "";
+    for (const team in game) {
+        const players = game[team].players;
+        for (const player in players) {
+            if (players[player].shoe > biggestShoeSize) {
+                biggestShoeSize = players[player].shoe;
+                playerName = player;
+            }
+        }
+    }
+    return players[playerName].rebounds;     
+}
+console.log(bigShoeRebounds()); // 19
+}
+
+//which player has the most points
+function mostPointsScored() {
+    const game = gameObject();
+    let mostPoints = 0;
+    let playerName = "";
+    for (const team in game) {
+        const players = game[team].players;
+        for (const player in players) {
+            if (players[player].points > mostPoints) {
+                mostPoints = players[player].points;
+                playerName = player;
+            }
+        }
+    }
+    return playerName;     
+}
+
+//team with the most points
+function winningTeam() {
+    const game = gameObject();
+    let homePoints = 0;
+    let awayPoints = 0;
+    for (const team in game) {
+        const players = game[team].players;
+        for (const player in players) {
+            if (team === "home") {
+                homePoints += players[player].points;
+            } else {
+                awayPoints += players[player].points;
+            }
+        }
+    }
+    return homePoints > awayPoints ? game.home.teamName : game.away.teamName;     
+}
+console.log(winningTeam()); // "Charlotte Hornets"
+
+//player with the longest name
+function playerWithLongestName() {
+    const game = gameObject();
+    let longestName = "";
+    for (const team in game) {
+        const players = game[team].players;
+        for (const player in players) {
+            if (player.length > longestName.length) {
+                longestName = player;
+            }
+        }
+    }
+    return longestName;     
+}
+console.log(playerWithLongestName()); // "Brendan Hayword"
+
+
+//does the player with the longest name have the most steals
+function doesPlayerWithLongestNameHaveMostSteals() {
+    const game = gameObject();
+    let longestName = "";
+    let mostSteals = 0;
+    let highestSteals = 0;
+    for (const team in game) {
+        const players = game[team].players;
+        for (const player in players) {
+            if (player.length > longestName.length) {
+                longestName = player;
+                mostSteals = players[player].steals;
+            }
+            if (players[player].steals > highestSteals) {
+                highestSteals = players[player].steals;
+            }
+
+        }
+    }
+    return mostSteals === highestSteals;   
+}
+console.log(doesPlayerWithLongestNameHaveMostSteals()); // false
